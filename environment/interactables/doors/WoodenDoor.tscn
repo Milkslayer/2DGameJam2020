@@ -1,0 +1,126 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://assets/sprites/world/tilemap.png" type="Texture" id=1]
+[ext_resource path="res://logic/DoorStateMachine.gd" type="Script" id=2]
+[ext_resource path="res://environment/interactables/doors/WoodenDoor.gd" type="Script" id=3]
+
+[sub_resource type="CanvasItemMaterial" id=28]
+blend_mode = 1
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 1 )
+region = Rect2( 224, 96, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 1 )
+region = Rect2( 320, 96, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 1 )
+region = Rect2( 320, 96, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 1 )
+region = Rect2( 288, 96, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 1 )
+region = Rect2( 256, 96, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 1 )
+region = Rect2( 224, 96, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 1 )
+region = Rect2( 224, 96, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 1 )
+region = Rect2( 256, 96, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 1 )
+region = Rect2( 288, 96, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 1 )
+region = Rect2( 320, 96, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=11]
+animations = [ {
+"frames": [ SubResource( 1 ) ],
+"loop": true,
+"name": "open",
+"speed": 0.0
+}, {
+"frames": [ SubResource( 2 ) ],
+"loop": true,
+"name": "closed",
+"speed": 0.0
+}, {
+"frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+"loop": true,
+"name": "opening",
+"speed": 6.0
+}, {
+"frames": [ SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
+"loop": true,
+"name": "closing",
+"speed": 6.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=27]
+extents = Vector2( 30, 27 )
+
+[sub_resource type="RectangleShape2D" id=15]
+extents = Vector2( 4, 16 )
+
+[node name="WoodenDoor" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="Tooltip" type="Label" parent="."]
+material = SubResource( 28 )
+margin_left = -65.0
+margin_top = -37.0
+margin_right = 66.0
+margin_bottom = -23.0
+text = "Press SPACE to open"
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="DoorSM" type="Node" parent="."]
+script = ExtResource( 2 )
+
+[node name="DoorAnimation" type="AnimatedSprite" parent="."]
+frames = SubResource( 11 )
+animation = "closed"
+
+[node name="AreaDoor" type="Area2D" parent="."]
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="DoorRange" type="CollisionShape2D" parent="AreaDoor"]
+shape = SubResource( 27 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="DoorStaticBody" type="StaticBody2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="ClosedCollision" type="CollisionShape2D" parent="DoorStaticBody"]
+position = Vector2( -12, 0 )
+shape = SubResource( 15 )
+__meta__ = {
+"_editor_description_": ""
+}
+[connection signal="area_entered" from="AreaDoor" to="." method="_on_AreaDoor_area_entered"]
+[connection signal="area_exited" from="AreaDoor" to="." method="_on_AreaDoor_area_exited"]

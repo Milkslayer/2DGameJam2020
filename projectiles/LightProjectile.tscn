@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/FX/LightBall.tscn" type="PackedScene" id=1]
+[ext_resource path="res://projectiles/LightProjectile.gd" type="Script" id=2]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 6.0
+height = 6.0
+
+[node name="LighProjectile" type="Area2D"]
+collision_layer = 16
+collision_mask = 11
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="LightBall" parent="." instance=ExtResource( 1 )]
+position = Vector2( 0, -1 )
+scale = Vector2( 1, 1.45 )
+
+[node name="HitBox" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -6 )
+shape = SubResource( 1 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="OnScreen" type="VisibilityNotifier2D" parent="."]
+position = Vector2( 0, -10.5 )
+scale = Vector2( 1, 1.45 )
+__meta__ = {
+"_editor_description_": ""
+}
+[connection signal="body_entered" from="." to="." method="_on_Projectile_body_entered"]

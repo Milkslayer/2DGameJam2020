@@ -1,0 +1,98 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://assets/sprites/world/tilemap.png" type="Texture" id=1]
+[ext_resource path="res://assets/environment/light_radial_half.png" type="Texture" id=2]
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 1 )
+region = Rect2( 360, 35, 16, 23 )
+
+[sub_resource type="Curve" id=7]
+min_value = -360.0
+max_value = 360.0
+_data = [ Vector2( 0.0666667, -155.676 ), 0.0, 0.0, 0, 0, Vector2( 1, 51.8919 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=8]
+width = 32
+curve = SubResource( 7 )
+
+[sub_resource type="Gradient" id=9]
+offsets = PoolRealArray( 0, 0.247191, 0.501873, 0.741573, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 0.907589, 0.155102, 1, 1, 0.492188, 0, 1, 0.761719, 0.204712, 0.0761719, 1, 0.253906, 0.0476074, 0, 1 )
+
+[sub_resource type="GradientTexture" id=10]
+gradient = SubResource( 9 )
+
+[sub_resource type="Curve" id=11]
+min_value = -1.0
+_data = [ Vector2( 0.222222, -0.436937 ), 0.0, 0.0, 0, 0, Vector2( 0.488889, 0.202703 ), 0.0, 0.0, 0, 0, Vector2( 0.612698, 0.0315316 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=12]
+width = 32
+curve = SubResource( 11 )
+
+[sub_resource type="Curve" id=13]
+max_value = 4.0
+_data = [ Vector2( 0, 1.81081 ), 0.0, 0.0, 0, 0, Vector2( 0.32381, 0.981982 ), 0.0, 0.0, 0, 0, Vector2( 0.771429, 2.58559 ), 0.0, 0.0, 0, 0, Vector2( 1, 3.73874 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=14]
+width = 32
+curve = SubResource( 13 )
+
+[sub_resource type="ParticlesMaterial" id=15]
+emission_shape = 2
+emission_box_extents = Vector3( 4, 4, 2 )
+flag_disable_z = true
+gravity = Vector3( 0, -27.496, 0 )
+angular_velocity_curve = SubResource( 8 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.16
+orbit_velocity_curve = SubResource( 12 )
+damping = 1.64
+scale_random = 0.35
+scale_curve = SubResource( 14 )
+color_ramp = SubResource( 10 )
+
+[sub_resource type="CircleShape2D" id=17]
+radius = 90.0888
+
+[node name="Torch" type="Node2D"]
+scale = Vector2( 0.5, 0.5 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Panel" type="Panel" parent="."]
+visible = false
+margin_left = -234.0
+margin_top = -194.0
+margin_right = 274.0
+margin_bottom = 234.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TorchSprtie" type="Sprite" parent="."]
+texture = SubResource( 16 )
+
+[node name="Particles2D" type="Particles2D" parent="."]
+position = Vector2( 0, -7 )
+amount = 40
+lifetime = 1.29
+speed_scale = 0.67
+randomness = 1.0
+process_material = SubResource( 15 )
+
+[node name="Light2D" type="Light2D" parent="."]
+scale = Vector2( 0.9, 1.25 )
+texture = ExtResource( 2 )
+color = Color( 1, 0.756863, 0.521569, 1 )
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2( 0, 48 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 17 )
