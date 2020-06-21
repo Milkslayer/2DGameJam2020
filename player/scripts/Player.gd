@@ -1,5 +1,9 @@
 extends KinematicBody2D
 
+# CONST
+const MAX_FIRE_SHOTS = 5
+# CONST END
+
 # EXPORT VAR
 export var speed = 150
 # EXPORT END
@@ -29,9 +33,7 @@ func _process(delta):
 	
 	
 func _physics_process(delta):
-	
 	_get_input()
-	
 	move_and_slide(velocity)
 	
 	

@@ -2,15 +2,18 @@ extends Node2D
 
 export var light_hit_effect: PackedScene
 export var fire_hit_effect: PackedScene
+export var easy_enemy: PackedScene
+export var average_enemy: PackedScene
+export var hard_enemy: PackedScene
 
 enum HIT_EFFECT{
 	LIGHT = 0,
 	FIRE = 1
 }
-# Called when the node enters the scene tree for the first time.
+
+
 func _ready():
 	pass
-#	connect("projectile_hit", self, "generate_hit_effect", [hit_position, projectile_type])
 
 
 func generate_hit_effect(hit_position: Vector2, body, type):

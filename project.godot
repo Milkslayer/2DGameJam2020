@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://logic/DoorStateMachine.gd"
 }, {
+"base": "KinematicBody2D",
+"class": "Mob",
+"language": "GDScript",
+"path": "res://mobs/scripts/Mob.gd"
+}, {
 "base": "Area2D",
 "class": "Projectile",
 "language": "GDScript",
@@ -26,6 +31,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "DoorStateMachine": "",
+"Mob": "",
 "Projectile": "",
 "Statemachine": ""
 }
