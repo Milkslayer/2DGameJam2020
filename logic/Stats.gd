@@ -16,7 +16,7 @@ const ERROR_INVALID_BASE_SPEED = "Stats: Base SPEED must be between %d and %d." 
 
 var speed := 0
 var damage := 0
-var health := 0
+var health := 0 
 
 
 func _ready():
@@ -33,3 +33,16 @@ func _initialize_stats(health_points: int, movement_speed: int, damage_per_hit: 
 	self.health = health_points
 	self.speed = movement_speed
 	self.damage = damage_per_hit
+
+func _apply_health(health):
+	if (self.health + health) < MAX_BASE_HEALTH:
+		self.health += health
+	elif self.health != MAX_BASE_HEALTH:
+		var remaining_health = MAX_BASE_HEALTH - self.health
+		self.health += remaining_health
+
+func _remove_health(damage):
+	if (self.health - damage) > 0:
+		self.health -= damage
+	elif (self.health - damage) <= 0:
+		self.health = 0

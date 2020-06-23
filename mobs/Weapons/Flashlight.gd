@@ -24,14 +24,14 @@ func turn_on():
 
 
 func _on_DamageTimer_timeout():
-	get_tree().call_group("Player", "take_damage", damage_per_tick)
+	get_tree().call_group("Player", "taking_damage", damage_per_tick)
 
 
 func _on_AreaOfEffect_area_entered(area):
 	if area.name == "PlayerHitbox":
 		player_in_range = true
 		timer.start()
-		get_tree().call_group("Player", "take_damage", damage_per_tick)
+		get_tree().call_group("Player", "taking_damage", damage_per_tick)
 
 
 func _on_AreaOfEffect_area_exited(area):

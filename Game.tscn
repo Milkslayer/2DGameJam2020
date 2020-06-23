@@ -1,13 +1,15 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Game.gd" type="Script" id=2]
 [ext_resource path="res://assets/FX/FireBallHitEffect.tscn" type="PackedScene" id=3]
 [ext_resource path="res://World.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/FX/LightBallHitEffect.tscn" type="PackedScene" id=5]
-[ext_resource path="res://items/interactables/Torch.tscn" type="PackedScene" id=6]
+[ext_resource path="res://environment/interactables/Torch.tscn" type="PackedScene" id=6]
 [ext_resource path="res://mobs/ChildGirl.tscn" type="PackedScene" id=7]
 [ext_resource path="res://mobs/ChildBoy.tscn" type="PackedScene" id=8]
+[ext_resource path="res://mobs/Cat.tscn" type="PackedScene" id=9]
+[ext_resource path="res://mobs/Weapons/Flashlight.tscn" type="PackedScene" id=10]
 [ext_resource path="res://environment/interactables/FirePlace.tscn" type="PackedScene" id=13]
 
 [node name="Game" type="Node2D"]
@@ -39,6 +41,11 @@ position = Vector2( 755, 425 )
 [node name="ChildBoy" parent="YSort" instance=ExtResource( 8 )]
 position = Vector2( 720, 421 )
 
+[node name="Cat" parent="YSort" instance=ExtResource( 9 )]
+position = Vector2( 1016, 119 )
+
+[node name="Flashlight" parent="YSort" instance=ExtResource( 10 )]
+position = Vector2( 430, 205 )
+
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 color = Color( 0.0705882, 0.0705882, 0.0705882, 1 )

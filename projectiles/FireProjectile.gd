@@ -1,5 +1,6 @@
-extends "res://projectiles/Projectile.gd"
+extends Projectile
+
 
 func _ready():
-	init(HIT_EFFECT.FIRE)
+	init(HitEffect.FIRE)
 

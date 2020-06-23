@@ -1,6 +1,6 @@
 extends Node
 
-class_name Statemachine
+class_name StateMachine
 
 var state = null
 var previous_state = null

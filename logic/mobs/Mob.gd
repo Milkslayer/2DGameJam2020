@@ -13,8 +13,6 @@ export var speed = 0
 export var difficulty = 0
 export var weapon_type : PackedScene
 
-
-
 onready var sprite = $MobSprite
 
 var velocity = Vector2()

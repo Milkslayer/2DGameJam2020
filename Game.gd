@@ -26,3 +26,6 @@ func generate_hit_effect(hit_position: Vector2, body, type):
 			var temp = fire_hit_effect.instance()
 			temp.position = hit_position
 			add_child(temp)
+
+func activate_fire_place(body):
+	body.get_parent()._activate()

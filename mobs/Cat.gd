@@ -1,14 +1,21 @@
-extends "res://mobs/scripts/Mob.gd"
+extends "res://logic/mobs/Mob.gd"
 
 
+onready var label = $Label
+#onready var state_machine = MobStateMachine.new()
 
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	pass
+	
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(delta):
+	match state_machine.state:
+		state_machine.states.idle:
+			label.text = "IDLE"
+		state_machine.states.chasing:
+			label.text = "CHASING"
+		state_machine.states.attacking:
+			label.text = "ATTACKING"
+		state_machine.states.patrolling:
+			label.text = "PATROLLING"

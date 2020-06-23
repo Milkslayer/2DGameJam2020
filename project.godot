@@ -29,13 +29,23 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://logic/mobs/MobStats.gd"
 }, {
+"base": "StateMachine",
+"class": "PlayerStateMachine",
+"language": "GDScript",
+"path": "res://logic/player/PlayerStateMachine.gd"
+}, {
+"base": "Stats",
+"class": "PlayerStats",
+"language": "GDScript",
+"path": "res://logic/player/PlayerStats.gd"
+}, {
 "base": "Area2D",
 "class": "Projectile",
 "language": "GDScript",
 "path": "res://projectiles/Projectile.gd"
 }, {
 "base": "Node",
-"class": "Statemachine",
+"class": "StateMachine",
 "language": "GDScript",
 "path": "res://logic/StateMachine.gd"
 }, {
@@ -49,8 +59,10 @@ _global_script_class_icons={
 "Mob": "",
 "MobStateMachine": "",
 "MobStats": "",
+"PlayerStateMachine": "",
+"PlayerStats": "",
 "Projectile": "",
-"Statemachine": "",
+"StateMachine": "",
 "Stats": ""
 }
 
@@ -106,7 +118,9 @@ fire_secondary={
 
 [layer_names]
 
+2d_render/layer_1="World"
 2d_physics/layer_1="World"
+2d_render/layer_2="Mobs"
 2d_physics/layer_2="Environment"
 2d_physics/layer_3="Player"
 2d_physics/layer_4="Enemies"

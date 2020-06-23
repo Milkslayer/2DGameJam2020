@@ -1,7 +1,8 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://assets/sprites/world/tilemap.png" type="Texture" id=1]
 [ext_resource path="res://assets/environment/light_radial_half.png" type="Texture" id=2]
+[ext_resource path="res://logic/environment/FirePlace.gd" type="Script" id=3]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
@@ -15,67 +16,101 @@ region = Rect2( 32, 224, 32, 32 )
 atlas = ExtResource( 1 )
 region = Rect2( 64, 224, 32, 32 )
 
-[sub_resource type="SpriteFrames" id=4]
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 288, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 1 )
+region = Rect2( 32, 288, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 1 )
+region = Rect2( 64, 288, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=7]
 animations = [ {
 "frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ) ],
 "loop": true,
-"name": "fire_3",
-"speed": 5.0
+"name": "active",
+"speed": 3.0
+}, {
+"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+"loop": true,
+"name": "inactive",
+"speed": 3.0
 } ]
 
-[sub_resource type="Curve" id=5]
+[sub_resource type="Curve" id=8]
 min_value = -360.0
 max_value = 360.0
 _data = [ Vector2( 0.0666667, -155.676 ), 0.0, 0.0, 0, 0, Vector2( 1, 51.8919 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=6]
+[sub_resource type="CurveTexture" id=9]
 width = 32
-curve = SubResource( 5 )
+curve = SubResource( 8 )
 
-[sub_resource type="Gradient" id=7]
-offsets = PoolRealArray( 0, 0.247191, 0.501873, 0.741573, 1 )
-colors = PoolColorArray( 1, 1, 1, 1, 1, 0.907589, 0.155102, 1, 1, 0.492188, 0, 1, 0.761719, 0.204712, 0.0761719, 1, 0.253906, 0.0476074, 0, 1 )
+[sub_resource type="Gradient" id=10]
+offsets = PoolRealArray( 0, 0.247191, 0.539326, 0.737828, 1 )
+colors = PoolColorArray( 1, 0.890625, 0, 1, 1, 0.492188, 0, 1, 1, 0.28125, 0, 1, 0.609375, 0, 0, 1, 0, 0, 0, 1 )
 
-[sub_resource type="GradientTexture" id=8]
-gradient = SubResource( 7 )
+[sub_resource type="GradientTexture" id=11]
+gradient = SubResource( 10 )
 
-[sub_resource type="Curve" id=9]
+[sub_resource type="Curve" id=12]
 min_value = -1.0
 _data = [ Vector2( 0.222222, -0.436937 ), 0.0, 0.0, 0, 0, Vector2( 0.488889, 0.202703 ), 0.0, 0.0, 0, 0, Vector2( 0.612698, 0.0315316 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=10]
+[sub_resource type="CurveTexture" id=13]
 width = 32
-curve = SubResource( 9 )
+curve = SubResource( 12 )
 
-[sub_resource type="Curve" id=11]
+[sub_resource type="Curve" id=14]
 max_value = 4.0
 _data = [ Vector2( 0, 1.81081 ), 0.0, 0.0, 0, 0, Vector2( 0.32381, 0.981982 ), 0.0, 0.0, 0, 0, Vector2( 0.771429, 2.58559 ), 0.0, 0.0, 0, 0, Vector2( 1, 3.73874 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=12]
+[sub_resource type="CurveTexture" id=15]
 width = 32
-curve = SubResource( 11 )
+curve = SubResource( 14 )
 
-[sub_resource type="ParticlesMaterial" id=13]
+[sub_resource type="ParticlesMaterial" id=16]
 emission_shape = 2
 emission_box_extents = Vector3( 4, 4, 2 )
 flag_disable_z = true
 gravity = Vector3( 0, -27.496, 0 )
-angular_velocity_curve = SubResource( 6 )
+angular_velocity_curve = SubResource( 9 )
 orbit_velocity = 0.0
 orbit_velocity_random = 0.16
-orbit_velocity_curve = SubResource( 10 )
+orbit_velocity_curve = SubResource( 13 )
 damping = 1.64
+scale = 1.86
 scale_random = 0.35
-scale_curve = SubResource( 12 )
-color_ramp = SubResource( 8 )
+scale_curve = SubResource( 15 )
+color_ramp = SubResource( 11 )
 
-[sub_resource type="CircleShape2D" id=14]
+[sub_resource type="ParticlesMaterial" id=17]
+emission_shape = 2
+emission_box_extents = Vector3( 4, 4, 2 )
+flag_disable_z = true
+gravity = Vector3( 0, -27.496, 0 )
+angular_velocity_curve = SubResource( 9 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.16
+orbit_velocity_curve = SubResource( 13 )
+damping = 1.64
+scale = 1.86
+scale_random = 0.35
+scale_curve = SubResource( 15 )
+color_ramp = SubResource( 11 )
+
+[sub_resource type="CircleShape2D" id=18]
 radius = 80.0062
 
-[sub_resource type="RectangleShape2D" id=15]
+[sub_resource type="RectangleShape2D" id=19]
 extents = Vector2( 16, 16 )
 
 [node name="FirePlace" type="Node2D"]
+script = ExtResource( 3 )
 
 [node name="Panel" type="Panel" parent="."]
 visible = false
@@ -87,40 +122,61 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-frames = SubResource( 4 )
-animation = "fire_3"
-frame = 1
+[node name="FirePlaceSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 7 )
+animation = "active"
+frame = 2
 playing = true
 
-[node name="Light2D" type="Light2D" parent="."]
+[node name="FireLight" type="Light2D" parent="."]
 position = Vector2( 2, 38 )
 texture = ExtResource( 2 )
 color = Color( 0.996078, 0.721569, 0.333333, 1 )
-energy = 1.17
 
-[node name="Particles2D" type="Particles2D" parent="."]
+[node name="FireParticles" type="Particles2D" parent="."]
 position = Vector2( 0, 9 )
 amount = 40
 lifetime = 1.29
 speed_scale = 0.67
 randomness = 1.0
-process_material = SubResource( 13 )
+process_material = SubResource( 16 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="SmokeParticles" type="Particles2D" parent="."]
+position = Vector2( 0, 9 )
+emitting = false
+amount = 10
+lifetime = 1.29
+speed_scale = 0.67
+randomness = 1.0
+process_material = SubResource( 17 )
 __meta__ = {
 "_editor_description_": ""
 }
 
 [node name="FirePlaceArea" type="Area2D" parent="."]
 collision_layer = 2
-collision_mask = 0
+collision_mask = 4
 
 [node name="HealingArea" type="CollisionShape2D" parent="FirePlaceArea"]
 position = Vector2( 0, 72 )
-shape = SubResource( 14 )
+shape = SubResource( 18 )
 
 [node name="FirePlaceStaticBody" type="StaticBody2D" parent="."]
 collision_layer = 32
 collision_mask = 0
 
 [node name="FirePlaceCollision" type="CollisionShape2D" parent="FirePlaceStaticBody"]
-shape = SubResource( 15 )
+shape = SubResource( 19 )
+
+[node name="ActiveTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[node name="HealingTimer" type="Timer" parent="."]
+[connection signal="body_entered" from="FirePlaceArea" to="." method="_on_FirePlaceArea_body_entered"]
+[connection signal="body_exited" from="FirePlaceArea" to="." method="_on_FirePlaceArea_body_exited"]
+[connection signal="timeout" from="ActiveTimer" to="." method="_on_ActiveTimer_timeout"]
+[connection signal="timeout" from="HealingTimer" to="." method="_on_HealingTimer_timeout"]
