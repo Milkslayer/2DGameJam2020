@@ -9,11 +9,12 @@ height = 6.0
 
 [node name="LighProjectile" type="Area2D"]
 collision_layer = 16
-collision_mask = 11
+collision_mask = 105
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
 }
+speed = 300
 
 [node name="LightBall" parent="." instance=ExtResource( 1 )]
 position = Vector2( 0, -1 )
@@ -32,4 +33,5 @@ scale = Vector2( 1, 1.45 )
 __meta__ = {
 "_editor_description_": ""
 }
+[connection signal="area_entered" from="." to="." method="_on_Projectile_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_Projectile_body_entered"]

@@ -2,14 +2,16 @@ extends KinematicBody2D
 
 # CONST
 const MAX_FIRE_SHOTS = 5
+const PLAYER_GLOW_COLOR_HEX = "a4fbff"
 # CONST END
 
 # EXPORT VAR
 export var speed = 150
+export var health = 100
 # EXPORT END
 # ONREADY VAR
 onready var pointer := $Pointer
-onready var fire_direction := $Pointer/FireDirection
+onready var animations := $Animations
 onready var light_projectile = load("res://projectiles/LightProjectile.tscn")
 onready var fire_projectile = load("res://projectiles/FireProjectile.tscn")
 # ONREADY VAR END
@@ -85,3 +87,8 @@ func _get_input():
 	var velocity_ratio = velocity.abs().aspect()
 	if velocity_ratio == 1:
 		velocity /= sqrt(2)
+
+
+func take_damage(damage: int):
+	animations.play("TakeDamage")
+	print("Taking %d damage" % damage)

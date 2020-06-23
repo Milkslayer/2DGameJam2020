@@ -12,12 +12,22 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "DoorStateMachine",
 "language": "GDScript",
-"path": "res://logic/DoorStateMachine.gd"
+"path": "res://logic/Interactables/DoorStateMachine.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "Mob",
 "language": "GDScript",
-"path": "res://mobs/scripts/Mob.gd"
+"path": "res://logic/mobs/Mob.gd"
+}, {
+"base": "Node",
+"class": "MobStateMachine",
+"language": "GDScript",
+"path": "res://logic/mobs/MobStateMachine.gd"
+}, {
+"base": "Node",
+"class": "MobStats",
+"language": "GDScript",
+"path": "res://logic/mobs/MobStats.gd"
 }, {
 "base": "Area2D",
 "class": "Projectile",
@@ -28,12 +38,20 @@ _global_script_classes=[ {
 "class": "Statemachine",
 "language": "GDScript",
 "path": "res://logic/StateMachine.gd"
+}, {
+"base": "Node",
+"class": "Stats",
+"language": "GDScript",
+"path": "res://logic/Stats.gd"
 } ]
 _global_script_class_icons={
 "DoorStateMachine": "",
 "Mob": "",
+"MobStateMachine": "",
+"MobStats": "",
 "Projectile": "",
-"Statemachine": ""
+"Statemachine": "",
+"Stats": ""
 }
 
 [application]
@@ -93,6 +111,8 @@ fire_secondary={
 2d_physics/layer_3="Player"
 2d_physics/layer_4="Enemies"
 2d_physics/layer_5="Projectiles"
+2d_physics/layer_6="Interactables"
+2d_physics/layer_7="EnemyWeapons"
 
 [rendering]
 

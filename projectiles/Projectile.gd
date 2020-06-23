@@ -33,13 +33,19 @@ func _physics_process(delta):
 func set_direction_and_starting_position(point_direction: Vector2, starting_position: Vector2):
 	rotation = position.direction_to(point_direction).angle() - PI / 2
 	velocity = point_direction
-	position = starting_position
+	global_position = starting_position
 
 
 func init(effect_type: int):
 	hit_effect_type = effect_type
 
 
-func _on_Projectile_body_entered(body):
-	emit_signal("projectile_hit", position, body, hit_effect_type)
+func _on_Projectile_area_entered(area):
+	emit_signal("projectile_hit", position, area, hit_effect_type)
 	queue_free()
+
+
+func _on_Projectile_body_entered(body):
+	if body.name == "Arena":
+		emit_signal("projectile_hit", position, body, hit_effect_type)
+		queue_free()

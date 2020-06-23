@@ -23,56 +23,56 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="Curve" id=7]
+[sub_resource type="Curve" id=5]
 min_value = -360.0
 max_value = 360.0
 _data = [ Vector2( 0.0666667, -155.676 ), 0.0, 0.0, 0, 0, Vector2( 1, 51.8919 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=8]
+[sub_resource type="CurveTexture" id=6]
 width = 32
-curve = SubResource( 7 )
+curve = SubResource( 5 )
 
-[sub_resource type="Gradient" id=9]
+[sub_resource type="Gradient" id=7]
 offsets = PoolRealArray( 0, 0.247191, 0.501873, 0.741573, 1 )
 colors = PoolColorArray( 1, 1, 1, 1, 1, 0.907589, 0.155102, 1, 1, 0.492188, 0, 1, 0.761719, 0.204712, 0.0761719, 1, 0.253906, 0.0476074, 0, 1 )
 
-[sub_resource type="GradientTexture" id=10]
-gradient = SubResource( 9 )
+[sub_resource type="GradientTexture" id=8]
+gradient = SubResource( 7 )
 
-[sub_resource type="Curve" id=11]
+[sub_resource type="Curve" id=9]
 min_value = -1.0
 _data = [ Vector2( 0.222222, -0.436937 ), 0.0, 0.0, 0, 0, Vector2( 0.488889, 0.202703 ), 0.0, 0.0, 0, 0, Vector2( 0.612698, 0.0315316 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=10]
+width = 32
+curve = SubResource( 9 )
+
+[sub_resource type="Curve" id=11]
+max_value = 4.0
+_data = [ Vector2( 0, 1.81081 ), 0.0, 0.0, 0, 0, Vector2( 0.32381, 0.981982 ), 0.0, 0.0, 0, 0, Vector2( 0.771429, 2.58559 ), 0.0, 0.0, 0, 0, Vector2( 1, 3.73874 ), 0.0, 0.0, 0, 0 ]
 
 [sub_resource type="CurveTexture" id=12]
 width = 32
 curve = SubResource( 11 )
 
-[sub_resource type="Curve" id=13]
-max_value = 4.0
-_data = [ Vector2( 0, 1.81081 ), 0.0, 0.0, 0, 0, Vector2( 0.32381, 0.981982 ), 0.0, 0.0, 0, 0, Vector2( 0.771429, 2.58559 ), 0.0, 0.0, 0, 0, Vector2( 1, 3.73874 ), 0.0, 0.0, 0, 0 ]
-
-[sub_resource type="CurveTexture" id=14]
-width = 32
-curve = SubResource( 13 )
-
-[sub_resource type="ParticlesMaterial" id=15]
+[sub_resource type="ParticlesMaterial" id=13]
 emission_shape = 2
 emission_box_extents = Vector3( 4, 4, 2 )
 flag_disable_z = true
 gravity = Vector3( 0, -27.496, 0 )
-angular_velocity_curve = SubResource( 8 )
+angular_velocity_curve = SubResource( 6 )
 orbit_velocity = 0.0
 orbit_velocity_random = 0.16
-orbit_velocity_curve = SubResource( 12 )
+orbit_velocity_curve = SubResource( 10 )
 damping = 1.64
 scale_random = 0.35
-scale_curve = SubResource( 14 )
-color_ramp = SubResource( 10 )
+scale_curve = SubResource( 12 )
+color_ramp = SubResource( 8 )
 
-[sub_resource type="CircleShape2D" id=5]
+[sub_resource type="CircleShape2D" id=14]
 radius = 80.0062
 
-[sub_resource type="RectangleShape2D" id=6]
+[sub_resource type="RectangleShape2D" id=15]
 extents = Vector2( 16, 16 )
 
 [node name="FirePlace" type="Node2D"]
@@ -90,6 +90,7 @@ __meta__ = {
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 4 )
 animation = "fire_3"
+frame = 1
 playing = true
 
 [node name="Light2D" type="Light2D" parent="."]
@@ -104,18 +105,22 @@ amount = 40
 lifetime = 1.29
 speed_scale = 0.67
 randomness = 1.0
-process_material = SubResource( 15 )
+process_material = SubResource( 13 )
 __meta__ = {
 "_editor_description_": ""
 }
 
 [node name="FirePlaceArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
 
 [node name="HealingArea" type="CollisionShape2D" parent="FirePlaceArea"]
 position = Vector2( 0, 72 )
-shape = SubResource( 5 )
+shape = SubResource( 14 )
 
 [node name="FirePlaceStaticBody" type="StaticBody2D" parent="."]
+collision_layer = 32
+collision_mask = 0
 
 [node name="FirePlaceCollision" type="CollisionShape2D" parent="FirePlaceStaticBody"]
-shape = SubResource( 6 )
+shape = SubResource( 15 )

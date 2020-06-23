@@ -1,8 +1,11 @@
 [gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://assets/sprites/world/tilemap.png" type="Texture" id=1]
-[ext_resource path="res://logic/DoorStateMachine.gd" type="Script" id=2]
+[ext_resource path="res://logic/Interactables/DoorStateMachine.gd" type="Script" id=2]
 [ext_resource path="res://environment/interactables/doors/WoodenDoor.gd" type="Script" id=3]
+
+
+
 
 [sub_resource type="CanvasItemMaterial" id=28]
 blend_mode = 1
