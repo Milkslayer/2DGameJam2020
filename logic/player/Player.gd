@@ -42,25 +42,26 @@ func _ready():
 	attack_timer.connect("timeout", state_machine, "_on_AttackTimer_timeout")
 
 func _process(delta):
-	var state
-	match state_machine.state:
-		state_machine.states.idle:
-			state = "IDLE"
-		state_machine.states.moving:
-			state = "MOVING"
-		state_machine.states.attacking:
-			state = "ATTACKING"
-		state_machine.states.taking_damage:
-			state = "TAKING DAMAGE"
-		state_machine.states.healing:
-			state = "HEALING"
-		state_machine.states.charging:
-			state = "CHARGING"
-		state_machine.states.dead:
-			state = "DEAD"
-	
-	var text = "STATE: %s\nHEALTH: %d\nFIREBALLS: %d\nCHARGE: %d" % [state, stats.health, stats.count_fireballs, stats.charge]
-	label.text = text
+	if get_tree().get_root().get_node("Game").DEBUG:
+		var state
+		match state_machine.state:
+			state_machine.states.idle:
+				state = "IDLE"
+			state_machine.states.moving:
+				state = "MOVING"
+			state_machine.states.attacking:
+				state = "ATTACKING"
+			state_machine.states.taking_damage:
+				state = "TAKING DAMAGE"
+			state_machine.states.healing:
+				state = "HEALING"
+			state_machine.states.charging:
+				state = "CHARGING"
+			state_machine.states.dead:
+				state = "DEAD"
+		
+		var text = "STATE: %s\nHEALTH: %d\nFIREBALLS: %d\nCHARGE: %d" % [state, stats.health, stats.count_fireballs, stats.charge]
+		label.text = text
 
 func _unhandled_input(event):
 	emit_signal("action_input_detected", event)

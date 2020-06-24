@@ -42,7 +42,7 @@ _global_script_classes=[ {
 "base": "Area2D",
 "class": "Projectile",
 "language": "GDScript",
-"path": "res://projectiles/Projectile.gd"
+"path": "res://logic/projectiles/Projectile.gd"
 }, {
 "base": "Node",
 "class": "StateMachine",

@@ -1,10 +1,18 @@
 extends Node2D
 
+var DEBUG = true
+
 export var light_hit_effect: PackedScene
 export var fire_hit_effect: PackedScene
 export var easy_enemy: PackedScene
 export var average_enemy: PackedScene
 export var hard_enemy: PackedScene
+
+enum Difficulties {
+	EASY = 0,
+	MEDIUM = 0,
+	HARD = 0
+}
 
 enum HIT_EFFECT{
 	LIGHT = 0,
