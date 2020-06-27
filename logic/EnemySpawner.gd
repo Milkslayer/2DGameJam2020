@@ -74,6 +74,12 @@ func _start_wave():
 			if starting_enemy_count < max_enemy_count:
 				enemy_instance.position = get_rng_spawn_location()
 				enemies.append(enemy_instance)
+				if difficulty == Difficulty.HARD:
+					var temp = rng.randi_range(0, 9)
+					if temp % 2 == 0 and temp > 4:
+						var special_enemy = enemy_types.special.instance()
+						special_enemy.position = get_rng_spawn_location()
+						enemies.append(special_enemy)
 			elif max_enemy_count - starting_enemy_count < enemies_to_add:
 				enemy_instance.position = get_rng_spawn_location()
 				enemies.append(enemy_instance)

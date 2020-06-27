@@ -5,7 +5,7 @@ class_name Stats
 const MIN_BASE_HEALTH: int = 50
 const MAX_BASE_HEALTH: int = 100
 const MIN_BASE_DAMAGE: int = 1
-const MAX_BASE_DAMAGE: int = 10
+const MAX_BASE_DAMAGE: int = 20
 const MIN_BASE_SPEED: int = 150
 const MAX_BASE_SPEED: int = 200
 

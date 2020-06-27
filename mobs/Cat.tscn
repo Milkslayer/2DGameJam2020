@@ -98,31 +98,31 @@ region = Rect2( 64, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 32, 32, 32 )
+region = Rect2( 0, 64, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 1 )
-region = Rect2( 64, 32, 32, 32 )
+region = Rect2( 64, 64, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 1 )
-region = Rect2( 32, 0, 32, 32 )
+region = Rect2( 0, 32, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 96, 32, 32 )
+region = Rect2( 64, 32, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 1 )
-region = Rect2( 64, 96, 32, 32 )
+region = Rect2( 32, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 64, 32, 32 )
+region = Rect2( 0, 96, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 1 )
-region = Rect2( 64, 64, 32, 32 )
+region = Rect2( 64, 96, 32, 32 )
 
 [sub_resource type="SpriteFrames" id=13]
 animations = [ {
@@ -133,22 +133,22 @@ animations = [ {
 }, {
 "frames": [ SubResource( 6 ), SubResource( 7 ) ],
 "loop": true,
+"name": "walk_right",
+"speed": 3.0
+}, {
+"frames": [ SubResource( 8 ), SubResource( 9 ) ],
+"loop": true,
 "name": "walk_left",
 "speed": 3.0
 }, {
-"frames": [ SubResource( 8 ) ],
+"frames": [ SubResource( 10 ) ],
 "loop": true,
 "name": "stand",
 "speed": 0.0
 }, {
-"frames": [ SubResource( 9 ), SubResource( 10 ) ],
-"loop": true,
-"name": "walk_back",
-"speed": 3.0
-}, {
 "frames": [ SubResource( 11 ), SubResource( 12 ) ],
 "loop": true,
-"name": "walk_right",
+"name": "walk_back",
 "speed": 3.0
 } ]
 
@@ -159,7 +159,7 @@ extents = Vector2( 8, 2 )
 extents = Vector2( 10, 11 )
 
 [sub_resource type="CircleShape2D" id=16]
-radius = 134.004
+radius = 168.003
 
 [sub_resource type="CanvasItemMaterial" id=17]
 blend_mode = 1
@@ -245,7 +245,6 @@ __meta__ = {
 
 [node name="SFXHit" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
-volume_db = -5.0
 [connection signal="body_entered" from="ObservingArea" to="." method="_on_ObservingArea_body_entered"]
 [connection signal="body_exited" from="ObservingArea" to="." method="_on_ObservingArea_body_exited"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]

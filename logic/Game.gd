@@ -11,7 +11,7 @@ enum HIT_EFFECT{
 	FIRE = 1
 }
 
-var DEBUG = true
+var DEBUG = false
 
 export var light_hit_effect: PackedScene
 export var fire_hit_effect: PackedScene
