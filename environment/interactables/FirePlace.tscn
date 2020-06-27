@@ -182,7 +182,7 @@ one_shot = true
 
 [node name="SoundEffect" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
-volume_db = -20.0
+volume_db = -15.0
 [connection signal="body_entered" from="FirePlaceArea" to="." method="_on_FirePlaceArea_body_entered"]
 [connection signal="body_exited" from="FirePlaceArea" to="." method="_on_FirePlaceArea_body_exited"]
 [connection signal="timeout" from="ActiveTimer" to="." method="_on_ActiveTimer_timeout"]
