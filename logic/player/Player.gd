@@ -10,8 +10,9 @@ onready var animations := $Animations
 onready var sprite := $PlayerSprite
 onready var label := $Label
 onready var attack_timer := $AttackTimer
-onready var light_projectile = load("res://projectiles/LightProjectile.tscn")
-onready var fire_projectile = load("res://projectiles/FireProjectile.tscn")
+onready var hit_sound := $HitSound
+onready var light_projectile = preload("res://projectiles/LightProjectile.tscn")
+onready var fire_projectile = preload("res://projectiles/FireProjectile.tscn")
 var velocity = Vector2()
 
 
@@ -23,6 +24,12 @@ signal action_input_detected(event)
 signal taking_damage(damage)
 signal healing(health_points)
 signal charging(charge_points)
+signal health_changed(new_health)
+signal charge_changed(new_charge)
+signal fireball_count_changed(new_count)
+signal player_died
+
+signal init_player_stats_gui(max_health, max_charge, max_fireballs_count)
 
 func _ready():
 	stats = PlayerStats.new()
@@ -34,12 +41,21 @@ func _ready():
 	add_child(state_machine)
 		
 	sprite.play("normal_stand_front")
-	
+	attack_timer.connect("timeout", state_machine, "_on_AttackTimer_timeout")
+
+		
 	self.connect("action_input_detected", state_machine, "handle_action_input")
 	self.connect("taking_damage", state_machine, "taking_damage")
 	self.connect("healing", state_machine, "healing")
 	self.connect("charging", state_machine, "charging")
-	attack_timer.connect("timeout", state_machine, "_on_AttackTimer_timeout")
+	self.connect("player_died", get_tree().get_root().get_node("Game"), "player_died")
+	
+	self.connect("health_changed", get_tree().get_root().get_node("Game/GUICover/HUD"), "_update_health_bar")
+	self.connect("charge_changed", get_tree().get_root().get_node("Game/GUICover/HUD"), "_update_charge_bar")
+	self.connect("fireball_count_changed", get_tree().get_root().get_node("Game/GUICover/HUD"), "_update_fireball_counter")
+	self.connect("init_player_stats_gui", get_tree().get_root().get_node("Game/GUICover/HUD"), "_initialize_player_stats", [stats.health, stats.MAX_CHARGE, stats.MAX_FIREBALLS])
+	
+	self.emit_signal("init_player_stats_gui")
 
 func _process(delta):
 	if get_tree().get_root().get_node("Game").DEBUG:
@@ -63,14 +79,17 @@ func _process(delta):
 		var text = "STATE: %s\nHEALTH: %d\nFIREBALLS: %d\nCHARGE: %d" % [state, stats.health, stats.count_fireballs, stats.charge]
 		label.text = text
 
-func _unhandled_input(event):
+func _input(event):
 	emit_signal("action_input_detected", event)
 		
-
+func _make_placeholder():
+	pointer.visible = false
+	
 
 func shoot_light(point_direction: Vector2):
 	var direction = (point_direction - position).normalized()
 	var shot = light_projectile.instance()
+	shot._set_damage(damage)
 	shot.set_direction_and_starting_position(direction, position)
 	get_parent().add_child(shot)
 
@@ -78,6 +97,7 @@ func shoot_light(point_direction: Vector2):
 func shoot_fire(point_direction: Vector2):
 	var direction = (point_direction - position).normalized()
 	var shot = fire_projectile.instance()
+	shot._set_damage(damage*5)
 	shot.set_direction_and_starting_position(direction, position)
 	get_parent().add_child(shot)
 
@@ -117,6 +137,10 @@ func _get_action_input():
 	var mouse_pos = get_viewport().get_mouse_position()
 	rotate_pointer(mouse_pos)
 	rotate_sprite(mouse_pos)
+
+
+func _patrol():
+	pass
 
 
 func taking_damage(damage: int):

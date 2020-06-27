@@ -36,10 +36,11 @@ func _add_fireball():
 		count_fireballs += 1
 
 
-func _check_charge():
+func _check_charge() -> bool:
 	if self.charge == 100:
 		self.charge = 0
-		self._add_fireball()
+		return true
+	return false	
 
 
 func _remove_fireball():

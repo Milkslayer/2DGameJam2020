@@ -11,7 +11,7 @@ onready var sprite := $FirePlaceSprite
 onready var healing_area = $FirePlaceArea/HealingArea
 onready var healing_timer = $HealingTimer
 onready var active_timer = $ActiveTimer
-
+onready var sound_effect = $SoundEffect
 
 
 enum States{
@@ -32,12 +32,16 @@ func set_state(state):
 		particles_fire.emitting = false
 		particles_smoke.emitting = true
 		healing_area.set_deferred("disabled", true)
+		sound_effect.stop()
 	if state == States.ACTIVE:
 		sprite.play("active")
 		fire_light.energy = 1
 		particles_fire.emitting = true
 		particles_smoke.emitting = false
 		healing_area.set_deferred("disabled", false)
+		sound_effect.play()
+		
+		
 
 func _activate():
 	active_timer.start()

@@ -1,47 +1,114 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://player/Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Game.gd" type="Script" id=2]
-[ext_resource path="res://assets/FX/FireBallHitEffect.tscn" type="PackedScene" id=3]
+[ext_resource path="res://logic/Game.gd" type="Script" id=2]
+[ext_resource path="res://FX/FireBallHitEffect.tscn" type="PackedScene" id=3]
 [ext_resource path="res://World.tscn" type="PackedScene" id=4]
-[ext_resource path="res://assets/FX/LightBallHitEffect.tscn" type="PackedScene" id=5]
+[ext_resource path="res://FX/LightBallHitEffect.tscn" type="PackedScene" id=5]
 [ext_resource path="res://environment/interactables/Torch.tscn" type="PackedScene" id=6]
-[ext_resource path="res://mobs/ChildGirl.tscn" type="PackedScene" id=7]
-[ext_resource path="res://mobs/ChildBoy.tscn" type="PackedScene" id=8]
-[ext_resource path="res://mobs/Cat.tscn" type="PackedScene" id=9]
+[ext_resource path="res://UI/HUD.tscn" type="PackedScene" id=7]
+[ext_resource path="res://logic/EnemySpawner.gd" type="Script" id=8]
+[ext_resource path="res://UI/GUI.tscn" type="PackedScene" id=9]
+[ext_resource path="res://FX/DespawnEffect.tscn" type="PackedScene" id=10]
+[ext_resource path="res://assets/audio/spooky_game_music.wav" type="AudioStream" id=11]
+[ext_resource path="res://assets/audio/fire_explosion.wav" type="AudioStream" id=12]
 [ext_resource path="res://environment/interactables/FirePlace.tscn" type="PackedScene" id=13]
+[ext_resource path="res://assets/audio/light_explosion.wav" type="AudioStream" id=14]
+[ext_resource path="res://assets/audio/win_music.wav" type="AudioStream" id=15]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 525, 214 )
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 2 )
 light_hit_effect = ExtResource( 5 )
 fire_hit_effect = ExtResource( 3 )
+enemy_despawn_effect = ExtResource( 10 )
+player = ExtResource( 1 )
+
+[node name="EnemySpawner" type="Node" parent="."]
+script = ExtResource( 8 )
+
+[node name="EnemyKilledTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="StartTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="ResetTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="WinTimeout" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[node name="GUICover" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="GUICover" instance=ExtResource( 7 )]
+
+[node name="GUI" parent="GUICover" instance=ExtResource( 9 )]
+
+[node name="RoamArea" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="RoamAreaCollision" type="CollisionShape2D" parent="RoamArea"]
+position = Vector2( 641, 311 )
+shape = SubResource( 1 )
+disabled = true
 
 [node name="World" parent="." instance=ExtResource( 4 )]
 
-[node name="FirePlace" parent="." instance=ExtResource( 13 )]
+[node name="Interactables" type="Node2D" parent="."]
+
+[node name="FirePlace" parent="Interactables" instance=ExtResource( 13 )]
 position = Vector2( 636, 80 )
 
-[node name="TorchLeft" parent="." instance=ExtResource( 6 )]
+[node name="TorchLeft" parent="Interactables" instance=ExtResource( 6 )]
 position = Vector2( 270, 82 )
 
-[node name="TorchRight" parent="." instance=ExtResource( 6 )]
+[node name="TorchRight" parent="Interactables" instance=ExtResource( 6 )]
 position = Vector2( 1027, 82 )
-
-[node name="Fire" type="Node" parent="."]
 
 [node name="YSort" type="YSort" parent="."]
 
-[node name="Player" parent="YSort" instance=ExtResource( 1 )]
-position = Vector2( 914, 392 )
-
-[node name="ChildGirl" parent="YSort" instance=ExtResource( 7 )]
-position = Vector2( 755, 425 )
-
-[node name="ChildBoy" parent="YSort" instance=ExtResource( 8 )]
-position = Vector2( 626, 417 )
-
-[node name="Cat" parent="YSort" instance=ExtResource( 9 )]
-position = Vector2( 284, 372 )
-
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color( 0, 0, 0, 1 )
+color = Color( 0, 0.0117647, 0.0352941, 1 )
+
+[node name="IntroScreen" type="Camera2D" parent="."]
+position = Vector2( 594, 84 )
+zoom = Vector2( 0.2, 0.2 )
+
+[node name="GameScreen" type="Camera2D" parent="."]
+position = Vector2( 640, 360 )
+
+[node name="IntroPlaceholders" type="Node2D" parent="."]
+
+[node name="FirePlace" parent="IntroPlaceholders" instance=ExtResource( 13 )]
+position = Vector2( 636, 80 )
+
+[node name="GameMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+volume_db = -20.0
+
+[node name="SFXFireExplosion" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+volume_db = -15.0
+
+[node name="SFXLightExplosion" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 14 )
+volume_db = -10.0
+
+[node name="WinMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 15 )
+volume_db = -20.0
+[connection signal="timeout" from="EnemyKilledTimer" to="." method="_on_EnemyKilledTimer_timeout"]
+[connection signal="timeout" from="StartTimer" to="." method="_on_StartTimer_timeout"]
+[connection signal="timeout" from="ResetTimer" to="." method="_on_ResetTimer_timeout"]
+[connection signal="timeout" from="WinTimeout" to="." method="_on_WinTimeout_timeout"]

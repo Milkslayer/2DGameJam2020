@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/spooky_game_music.wav-bdc0da1f70567fd481b24634e4316860.sample"
+
+[deps]
+
+source_file="res://assets/audio/spooky_game_music.wav"
+dest_files=[ "res://.import/spooky_game_music.wav-bdc0da1f70567fd481b24634e4316860.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=true
+compress/mode=0

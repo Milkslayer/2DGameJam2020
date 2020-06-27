@@ -1,0 +1,92 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://assets/environment/light_radial.png" type="Texture" id=1]
+[ext_resource path="res://FX/ProjectileHitEffect.gd" type="Script" id=2]
+
+
+[sub_resource type="Animation" id=1]
+resource_name = "Hit"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Light2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 0.0647041, 1, 22.6274 ),
+"update": 0,
+"values": [ Vector2( 1e-05, 1e-05 ), Vector2( 0.3, 0.3 ), Vector2( 1e-05, 1e-05 ) ]
+}
+
+[sub_resource type="Curve" id=2]
+min_value = -360.0
+max_value = 360.0
+_data = [ Vector2( 0, -360 ), 0.0, 0.0, 0, 0, Vector2( 0.977778, 360 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=3]
+curve = SubResource( 2 )
+
+[sub_resource type="Gradient" id=4]
+offsets = PoolRealArray( 0.168539, 0.28839, 0.535581, 0.797753, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 0.899171, 0.167347, 1, 0.962891, 0.626201, 0.0157207, 1, 1, 0.199219, 0, 1, 0.673828, 0, 0, 1 )
+
+[sub_resource type="GradientTexture" id=5]
+gradient = SubResource( 4 )
+width = 32
+
+[sub_resource type="Curve" id=8]
+_data = [ Vector2( 0, 0.184685 ), 0.0, 0.0, 0, 0, Vector2( 0.425397, 0.666667 ), 0.0, 0.0, 0, 0, Vector2( 0.95873, 0.585586 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=9]
+width = 32
+curve = SubResource( 8 )
+
+[sub_resource type="ParticlesMaterial" id=10]
+emission_shape = 1
+emission_sphere_radius = 3.0
+flag_disable_z = true
+gravity = Vector3( 0, 0, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 1.0
+radial_accel = 100.0
+radial_accel_random = 0.52
+angle_random = 1.0
+angle_curve = SubResource( 3 )
+scale = 27.71
+scale_random = 0.81
+scale_curve = SubResource( 9 )
+color_ramp = SubResource( 5 )
+
+[node name="FireBallHitEffect" type="Node2D"]
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Animation" type="AnimationPlayer" parent="."]
+anims/Hit = SubResource( 1 )
+
+[node name="Light2D" type="Light2D" parent="."]
+scale = Vector2( 1e-05, 1e-05 )
+texture = ExtResource( 1 )
+color = Color( 0.929412, 0.392157, 0, 1 )
+energy = 2.0
+
+[node name="Particle" type="Particles2D" parent="."]
+emitting = false
+amount = 24
+one_shot = true
+preprocess = 0.65
+process_material = SubResource( 10 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="ParticleTimeout" type="Timer" parent="."]
+wait_time = 0.3
+
+[node name="EmitterTimeout" type="Timer" parent="."]
+[connection signal="timeout" from="ParticleTimeout" to="." method="_on_ParticleTimeout_timeout"]
+[connection signal="timeout" from="EmitterTimeout" to="." method="_on_EmitterTimeout_timeout"]

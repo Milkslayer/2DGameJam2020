@@ -9,10 +9,20 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "ProgressBar",
+"class": "BaseBar",
+"language": "GDScript",
+"path": "res://UI/logic/Bars/BaseBar.gd"
+}, {
 "base": "Node",
 "class": "DoorStateMachine",
 "language": "GDScript",
-"path": "res://logic/Interactables/DoorStateMachine.gd"
+"path": "res://logic/environment/Interactables/DoorStateMachine.gd"
+}, {
+"base": "Node",
+"class": "EnemySpawner",
+"language": "GDScript",
+"path": "res://logic/EnemySpawner.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "Mob",
@@ -55,7 +65,9 @@ _global_script_classes=[ {
 "path": "res://logic/Stats.gd"
 } ]
 _global_script_class_icons={
+"BaseBar": "",
 "DoorStateMachine": "",
+"EnemySpawner": "",
 "Mob": "",
 "MobStateMachine": "",
 "MobStats": "",

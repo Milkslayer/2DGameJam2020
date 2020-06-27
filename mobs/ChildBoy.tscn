@@ -1,128 +1,271 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://assets/sprites/mobs/mob_male.png" type="Texture" id=1]
 [ext_resource path="res://assets/sprites/mobs/mob_male_dead.png" type="Texture" id=2]
 [ext_resource path="res://logic/mobs/ChildBoy.gd" type="Script" id=3]
 [ext_resource path="res://mobs/Weapons/Flashlight.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/audio/enemy_hit.wav" type="AudioStream" id=5]
 
-[sub_resource type="CanvasItemMaterial" id=1]
+[sub_resource type="Animation" id=1]
+resource_name = "Die"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("MobSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 11.7, 78.2 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("MobSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 2, -4 ), Vector2( 6, 9 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("MobSprite:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Weapon/Flashlight:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 159.1, 375.5 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Weapon/Flashlight:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -8, 4 ), Vector2( -22, -7 ), Vector2( 6, -6 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "TakeDamage"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("MobSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 11.7, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("MobSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 2, -4 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("MobSprite:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Weapon/Flashlight:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 3.5, 0.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Weapon/Flashlight:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -8, 4 ), Vector2( -11, 2 ), Vector2( -8, 4 ) ]
+}
+
+[sub_resource type="CanvasItemMaterial" id=3]
 blend_mode = 1
 
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 1 )
-region = Rect2( 32, 0, 32, 32 )
-
 [sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 1 )
-region = Rect2( 64, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 32, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 1 )
-region = Rect2( 32, 32, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 1 )
-region = Rect2( 64, 32, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 96, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 1 )
-region = Rect2( 32, 96, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=10]
-atlas = ExtResource( 1 )
-region = Rect2( 64, 96, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=11]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 64, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=12]
-atlas = ExtResource( 1 )
-region = Rect2( 32, 64, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=13]
-atlas = ExtResource( 1 )
-region = Rect2( 64, 64, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=14]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 32, 32 )
 
-[sub_resource type="SpriteFrames" id=16]
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 1 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 1 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 1 )
+region = Rect2( 32, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 1 )
+region = Rect2( 64, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 96, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 1 )
+region = Rect2( 32, 96, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 1 )
+region = Rect2( 64, 96, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 64, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 1 )
+region = Rect2( 32, 64, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 1 )
+region = Rect2( 64, 64, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=18]
 animations = [ {
-"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
+"frames": [ SubResource( 4 ) ],
+"loop": true,
+"name": "dead",
+"speed": 0.0
+}, {
+"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
 "loop": true,
 "name": "walk_front",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
+"frames": [ SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
 "loop": true,
 "name": "walk_left",
 "speed": 3.0
 }, {
-"frames": [ SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
-"loop": true,
-"name": "walk_back",
-"speed": 3.0
-}, {
-"frames": [ SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
-"loop": true,
-"name": "walk_right",
-"speed": 3.0
-}, {
-"frames": [ SubResource( 14 ) ],
+"frames": [ SubResource( 11 ) ],
 "loop": true,
 "name": "stand",
 "speed": 0.0
 }, {
-"frames": [ SubResource( 15 ) ],
+"frames": [ SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ],
 "loop": true,
-"name": "dead",
-"speed": 0.0
+"name": "walk_back",
+"speed": 3.0
+}, {
+"frames": [ SubResource( 15 ), SubResource( 16 ), SubResource( 17 ) ],
+"loop": true,
+"name": "walk_right",
+"speed": 3.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=17]
+[sub_resource type="RectangleShape2D" id=19]
 extents = Vector2( 8, 4 )
 
-[sub_resource type="RectangleShape2D" id=18]
-extents = Vector2( 10, 15 )
+[sub_resource type="RectangleShape2D" id=20]
+extents = Vector2( 10, 16 )
 
-[sub_resource type="CircleShape2D" id=19]
-radius = 44.1022
+[sub_resource type="CircleShape2D" id=21]
+radius = 72.0
 
-[node name="ChildBoy" type="KinematicBody2D"]
+[sub_resource type="CanvasItemMaterial" id=22]
+blend_mode = 1
+
+[sub_resource type="StyleBoxFlat" id=23]
+bg_color = Color( 0, 0.517647, 0.0196078, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="ChildBoy" type="KinematicBody2D" groups=[
+"Enemies",
+]]
 position = Vector2( -1, -1 )
 collision_layer = 8
 collision_mask = 4
 script = ExtResource( 3 )
-__meta__ = {
-"_edit_group_": true
-}
-health = 50
-damage = 3
-speed = 150
+health = 75
+damage = 5
+speed = 160
 difficulty = 2
 
 [node name="Animations" type="AnimationPlayer" parent="."]
+anims/Die = SubResource( 1 )
+anims/TakeDamage = SubResource( 2 )
+__meta__ = {
+"_editor_description_": ""
+}
 
 [node name="Label" type="Label" parent="."]
-material = SubResource( 1 )
+material = SubResource( 3 )
 margin_left = -19.0
 margin_top = -104.0
 margin_right = 21.0
@@ -138,23 +281,20 @@ __meta__ = {
 position = Vector2( -8, 4 )
 
 [node name="MobSprite" type="AnimatedSprite" parent="."]
-frames = SubResource( 16 )
+frames = SubResource( 18 )
 animation = "stand"
 playing = true
 
 [node name="BaseBody" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 12 )
-shape = SubResource( 17 )
+shape = SubResource( 19 )
 
-[node name="EnemyHitBox" type="Area2D" parent="."]
-visible = false
+[node name="EnemyHitbox" type="Area2D" parent="."]
 
-[node name="EnemyHitboxCollision" type="CollisionShape2D" parent="EnemyHitBox"]
-position = Vector2( 0, -1 )
-shape = SubResource( 18 )
+[node name="EnemyHitboxCollision" type="CollisionShape2D" parent="EnemyHitbox"]
+shape = SubResource( 20 )
 
 [node name="ObservingArea" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 4
 __meta__ = {
@@ -162,9 +302,27 @@ __meta__ = {
 }
 
 [node name="ObservingAreaCollision" type="CollisionShape2D" parent="ObservingArea"]
-shape = SubResource( 19 )
+shape = SubResource( 21 )
 __meta__ = {
 "_editor_description_": ""
 }
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+material = SubResource( 22 )
+margin_left = -26.0
+margin_top = -30.0
+margin_right = 28.0
+margin_bottom = -16.0
+custom_styles/fg = SubResource( 23 )
+step = 1.0
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="SFXHit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = -10.0
 [connection signal="body_entered" from="ObservingArea" to="." method="_on_ObservingArea_body_entered"]
 [connection signal="body_exited" from="ObservingArea" to="." method="_on_ObservingArea_body_exited"]

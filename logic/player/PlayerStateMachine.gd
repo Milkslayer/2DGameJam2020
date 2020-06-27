@@ -31,16 +31,23 @@ func _state_logic(delta):
 		states.taking_damage:
 			parent.animations.play("TakeDamage")
 			parent.stats._remove_health(incoming_damage)
+			parent.emit_signal("health_changed", parent.stats.health)
+			parent.hit_sound.play()
 			incoming_damage = 0
 		states.healing:
 			parent.animations.play("Heal")	
 			parent.stats._apply_health(incoming_health)
+			parent.emit_signal("health_changed", parent.stats.health)			
 			incoming_health = 0
 		states.charging:
 			parent.animations.play("Charge")
 			parent.stats._apply_charge(incoming_charge)
+			parent.emit_signal("charge_changed", parent.stats.charge)	
 			if parent.stats.count_fireballs != parent.stats.MAX_FIREBALLS:
-				parent.stats._check_charge()
+				if parent.stats._check_charge():
+					parent.emit_signal("charge_changed", parent.stats.charge)	
+					parent.stats._add_fireball()
+					parent.emit_signal("fireball_count_changed", parent.stats.count_fireballs)				
 			incoming_charge = 0
 		states.dead:
 			pass #END GAME
@@ -52,6 +59,7 @@ func _get_transition(delta):
 			if parent.should_die():
 				parent.sprite.stop()
 				parent.animations.play("Die")
+				parent.emit_signal("player_died")
 				return states.dead
 			if incoming_damage == 0 and previous_position != parent.position:
 				return states.moving
@@ -142,8 +150,14 @@ func handle_action_input(event):
 				is_attacking = true
 				parent.shoot_fire(mouse_pos)
 				parent.stats._remove_fireball()
+				parent.emit_signal("fireball_count_changed", parent.stats.count_fireballs)			
 				if parent.stats.charge == parent.stats.MAX_CHARGE:
-					parent.stats._check_charge()
+					if parent.stats._check_charge():
+						parent.emit_signal("charge_changed", parent.stats.charge)	
+						parent.stats._add_fireball()
+						parent.emit_signal("fireball_count_changed", parent.stats.count_fireballs)				
+				
+					
 
 
 func _on_AttackTimer_timeout():

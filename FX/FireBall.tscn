@@ -1,0 +1,86 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://assets/environment/light_radial.png" type="Texture" id=1]
+[ext_resource path="res://FX/ProjectileFX.gd" type="Script" id=2]
+
+[sub_resource type="Curve" id=1]
+min_value = -360.0
+max_value = 360.0
+_data = [ Vector2( 0, -360 ), 0.0, 0.0, 0, 0, Vector2( 0.977778, 360 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=2]
+curve = SubResource( 1 )
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0, 0.153558, 0.404494, 0.573034, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 0.84375, 0, 1, 0.921875, 0.410522, 0, 1, 0.925781, 0.21698, 0, 1, 0, 0, 0, 1 )
+
+[sub_resource type="GradientTexture" id=4]
+gradient = SubResource( 3 )
+width = 32
+
+[sub_resource type="Curve" id=5]
+_data = [ Vector2( 0.0698413, 0.385135 ), 0.0, 0.0, 0, 0, Vector2( 0.514286, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.718469 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=6]
+width = 32
+curve = SubResource( 5 )
+
+[sub_resource type="ParticlesMaterial" id=7]
+emission_shape = 1
+emission_sphere_radius = 3.0
+flag_disable_z = true
+gravity = Vector3( 0, -50, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+angle_random = 1.0
+angle_curve = SubResource( 2 )
+scale = 5.0
+scale_curve = SubResource( 6 )
+color_ramp = SubResource( 4 )
+
+[sub_resource type="Animation" id=8]
+resource_name = "Created"
+length = 0.548
+tracks/0/type = "value"
+tracks/0/path = NodePath("Particles2D/Light2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1e-05, 1e-05 ), Vector2( 0.051, 0.127 ), Vector2( 0.083, 0.174 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Particles2D/Light2D:energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0, 1.5 ]
+}
+
+[node name="FireBall" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Particles2D" type="Particles2D" parent="."]
+amount = 24
+process_material = SubResource( 7 )
+
+[node name="Light2D" type="Light2D" parent="Particles2D"]
+position = Vector2( 0, -8 )
+scale = Vector2( 0.083, 0.174 )
+texture = ExtResource( 1 )
+texture_scale = 2.0
+color = Color( 1, 0.552941, 0.117647, 1 )
+energy = 1.5
+
+[node name="Animation" type="AnimationPlayer" parent="."]
+anims/Created = SubResource( 8 )

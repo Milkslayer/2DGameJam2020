@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/light_explosion.wav-2c8da81d0d6aa52168c6eb11eb7473e6.sample"
+
+[deps]
+
+source_file="res://assets/audio/light_explosion.wav"
+dest_files=[ "res://.import/light_explosion.wav-2c8da81d0d6aa52168c6eb11eb7473e6.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

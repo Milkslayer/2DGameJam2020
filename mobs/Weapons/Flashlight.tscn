@@ -44,7 +44,12 @@ polygon = PoolVector2Array( -1, -1, -171, -76, -170, 80, -1, 1 )
 
 [node name="DamageTimer" type="Timer" parent="."]
 wait_time = 0.5
+
+[node name="SpotterTimer" type="Timer" parent="."]
+wait_time = 0.5
 [connection signal="area_entered" from="AreaOfEffect" to="." method="_on_AreaOfEffect_area_entered"]
 [connection signal="area_exited" from="AreaOfEffect" to="." method="_on_AreaOfEffect_area_exited"]
 [connection signal="body_entered" from="AreaOfEffect" to="." method="_on_AreaOfEffect_body_entered"]
+[connection signal="body_exited" from="AreaOfEffect" to="." method="_on_AreaOfEffect_body_exited"]
 [connection signal="timeout" from="DamageTimer" to="." method="_on_DamageTimer_timeout"]
+[connection signal="timeout" from="SpotterTimer" to="." method="_on_SpotterTimer_timeout"]
